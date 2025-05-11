@@ -1,5 +1,6 @@
 import cv2
 import mediapipe as mp
+import os
 
 mp_maos = mp.solutions.hands
 mp_desenho = mp.solutions.drawing_utils
@@ -11,6 +12,9 @@ resolucao_x = 1280
 resolucao_y = 720
 camera.set(cv2.CAP_PROP_FRAME_WIDTH, resolucao_x)
 camera.set(cv2.CAP_PROP_FRAME_HEIGHT, resolucao_y)
+vs_code = False
+chrome = False
+calculadora = False
 
 def encontra_coordenadas_maos(img, lado_invertido = False):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -74,7 +78,17 @@ while True:
 
     if len(todas_maos) == 1:
         info_dedos_mao1 = dedos_levantados(todas_maos[0])
-        print(info_dedos_mao1)
+        if info_dedos_mao1 == [True, False, False, False, False] and vs_code == False:
+            vs_code = True
+            os.startfile(r'C:\Users\Thiago\AppData\Local\Programs\Microsoft VS Code\Code.exe')
+
+        if info_dedos_mao1 == [True, True, False, False, False] and chrome == False:
+            chrome = True
+            os.startfile(r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+        
+            
+       
+
 
 
     cv2.imshow('Imagem', img)
