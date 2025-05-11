@@ -33,6 +33,11 @@ def encontra_coordenadas_maos(img, lado_invertido = False):
                     info_mao['lado'] = 'Right'
                 else:
                     info_mao['lado'] = 'Left'
+            else:
+                if lado_mao.classification[0].label == 'Left':
+                    info_mao['lado'] = 'Left'
+                else:
+                    info_mao['lado'] = 'Right'
 
             todas_maos.append(info_mao)    
             mp_desenho.draw_landmarks(img, marcacao_maos, mp_maos.HAND_CONNECTIONS)
@@ -41,6 +46,17 @@ def encontra_coordenadas_maos(img, lado_invertido = False):
 
 def dedos_levantados(mao):
     dedos = []
+
+    if mao['lado'] == 'Right':
+        if mao['coordenadas'][4][0] < mao['coordenadas'][3][0]:
+            dedos.append(True)
+        else:
+            dedos.append(False)
+    else:
+        if mao['coordenadas'][4][0] > mao['coordenadas'][3][0]:
+            dedos.append(True)
+        else:
+            dedos.append(False)
     for ponta_dedo in [8,12,16,20]:
         if mao['coordenadas'][ponta_dedo][1] < mao['coordenadas'][ponta_dedo-2][1]:
             dedos.append(True)
