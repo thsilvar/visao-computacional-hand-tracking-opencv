@@ -78,13 +78,23 @@ while True:
 
     if len(todas_maos) == 1:
         info_dedos_mao1 = dedos_levantados(todas_maos[0])
-        if info_dedos_mao1 == [True, False, False, False, False] and vs_code == False:
-            vs_code = True
-            os.startfile(r'C:\Users\Thiago\AppData\Local\Programs\Microsoft VS Code\Code.exe')
+        
+        if todas_maos[0]['lado'] == 'Right':
 
-        if info_dedos_mao1 == [True, True, False, False, False] and chrome == False:
-            chrome = True
-            os.startfile(r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+            if info_dedos_mao1 == [True, False, False, False, False] and vs_code == False:
+                vs_code = True
+                os.startfile(r'C:\Users\Thiago\AppData\Local\Programs\Microsoft VS Code\Code.exe')
+
+            if info_dedos_mao1 == [True, True, False, False, False] and chrome == False:
+                chrome = True
+                os.startfile(r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+
+            if info_dedos_mao1 == [False, False, False, False, False] and chrome == True:
+                chrome = False
+                os.system('TASKKILL /IM chrome.exe')
+
+            if info_dedos_mao1 == [True, False, False, False, True]:
+                break
         
             
        
